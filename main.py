@@ -1,8 +1,8 @@
 import sys
 
-from gerador_de_dados import GeradorDeDados
-from benchmark import Benchmark
-from arvore_avl import ArvoreAVL  
+from Benchmark.gerador_de_dados import GeradorDeDados
+from Benchmark.benchmark import Benchmark
+from Estruturas.arvore_avl import ArvoreAVL  
 
 # --- Parâmetros Globais do Benchmark ---
 N_ELEMENTOS = 100000        

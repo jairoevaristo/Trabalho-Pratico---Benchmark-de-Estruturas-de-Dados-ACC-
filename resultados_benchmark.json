@@ -1,0 +1,55 @@
+{
+  "AVL": [
+    {
+      "dataset": "aleatorio",
+      "N": 100000,
+      "execucoes": 3,
+      "tempo_insercao_ms_med": 1550.446,
+      "tempo_busca_ms_med": 180.83,
+      "tempo_remocao_ms_med": 108.48,
+      "altura_apos_insercao": 20,
+      "altura_apos_remocao": 20,
+      "rotacoes_total": 46564,
+      "rotacoes_simples": 23383,
+      "rotacoes_duplas": 23181,
+      "comparacoes_insercao": 1547281,
+      "comparacoes_busca": 1699999,
+      "comparacoes_remocao": 170000,
+      "estrutura": "AVL"
+    },
+    {
+      "dataset": "ordenado",
+      "N": 100000,
+      "execucoes": 3,
+      "tempo_insercao_ms_med": 1182.5,
+      "tempo_busca_ms_med": 273.141,
+      "tempo_remocao_ms_med": 114.446,
+      "altura_apos_insercao": 17,
+      "altura_apos_remocao": 17,
+      "rotacoes_total": 101882,
+      "rotacoes_simples": 101104,
+      "rotacoes_duplas": 778,
+      "comparacoes_insercao": 1568929,
+      "comparacoes_busca": 1650006,
+      "comparacoes_remocao": 158016,
+      "estrutura": "AVL"
+    },
+    {
+      "dataset": "quase_ordenado",
+      "N": 100000,
+      "execucoes": 3,
+      "tempo_insercao_ms_med": 1344.749,
+      "tempo_busca_ms_med": 283.584,
+      "tempo_remocao_ms_med": 123.78,
+      "altura_apos_insercao": 20,
+      "altura_apos_remocao": 20,
+      "rotacoes_total": 92529,
+      "rotacoes_simples": 62051,
+      "rotacoes_duplas": 30478,
+      "comparacoes_insercao": 1735734,
+      "comparacoes_busca": 1770489,
+      "comparacoes_remocao": 160241,
+      "estrutura": "AVL"
+    }
+  ]
+}

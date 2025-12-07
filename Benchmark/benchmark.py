@@ -1,7 +1,7 @@
 import json
 import os
 import sys
-from metricas import MetricasBenchmark
+from .metricas import MetricasBenchmark
 
 class Benchmark:
     
