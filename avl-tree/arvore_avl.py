@@ -1,5 +1,5 @@
 
-# --- Classes Fundamentais da Árvore AVL ---
+    # --- Classes Fundamentais da Árvore AVL ---
 
 class No:
     def __init__(self, chave):
@@ -19,7 +19,7 @@ class ArvoreAVL:
         self.comparacoes_busca = 0
         self.comparacoes_remocao = 0
 
-# --- Métodos Auxiliares de Altura e Fator de Balanceamento ---
+    # --- Métodos Auxiliares de Altura e Fator de Balanceamento ---
 
     def _obter_altura(self, no):
         if not no:
@@ -35,7 +35,7 @@ class ArvoreAVL:
             return 0
         return self._obter_altura(no.esquerda) - self._obter_altura(no.direita)
 
-# --- Métodos de Rotação ---
+    # --- Métodos de Rotação ---
 
     def _rotacao_direita(self, y):
         x = y.esquerda
@@ -79,7 +79,7 @@ class ArvoreAVL:
         self.rotacoes_duplas += 1
         return z
 
-# --- Rebalanceamento ---
+    # --- Rebalanceamento ---
 
     def _balancear(self, no):
         if not no:
@@ -88,14 +88,14 @@ class ArvoreAVL:
         self._atualizar_altura(no)
         balanceamento = self._obter_fator_balanceamento(no)
 
-# Caso 1: Desbalanceamento à Esquerda
+    # Caso 1: Desbalanceamento à Esquerda
         if balanceamento > 1:
             if self._obter_fator_balanceamento(no.esquerda) >= 0:
                 return self._rotacao_direita(no)
             else:
                 return self._rotacao_esquerda_direita(no)
 
-# Caso 2: Desbalanceamento à Direita
+    # Caso 2: Desbalanceamento à Direita
         if balanceamento < -1:
             if self._obter_fator_balanceamento(no.direita) <= 0:
                 return self._rotacao_esquerda(no)
@@ -104,7 +104,7 @@ class ArvoreAVL:
 
         return no
 
-# --- Operações Principais ---
+    # --- Operações Principais ---
 
     def _inserir_recursivo(self, raiz, chave):
         if not raiz:

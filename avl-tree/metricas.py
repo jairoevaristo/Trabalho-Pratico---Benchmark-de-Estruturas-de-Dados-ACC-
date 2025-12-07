@@ -1,10 +1,12 @@
 import time
+import math
 
 class MetricasBenchmark:    
     def __init__(self, execucoes: int = 3, N: int = 0):
         self.execucoes = execucoes
         self.N = N
         self.resultados = []
+        
         self.tempo_total_insercao = 0.0
         self.tempo_total_busca = 0.0
         self.tempo_total_remocao = 0.0
@@ -15,7 +17,7 @@ class MetricasBenchmark:
     def parar_cronometro(self, tempo_inicio):
         return time.perf_counter() - tempo_inicio
 
-    def adicionar_resultado_execucao(self, metricas: dict, tempo_ins: float, tempo_busca: float, tempo_rem: float):
+    def adicionar_resultado_execucao(self, metricas: dict, tempo_ins: float, tempo_busca: float, tempo_rem: float):        
         self.tempo_total_insercao += tempo_ins
         self.tempo_total_busca += tempo_busca
         self.tempo_total_remocao += tempo_rem
@@ -26,7 +28,6 @@ class MetricasBenchmark:
             return {}
 
         medias = {
-            "estrutura": "AVL", # Todo : Adicionar suporte para outras estruturas
             "dataset": nome_dataset,
             "N": self.N,
             "execucoes": self.execucoes,
@@ -36,29 +37,36 @@ class MetricasBenchmark:
         }
 
         soma_metricas = {
-            "rotacoes_total": 0,
-            "rotacoes_simples": 0,
-            "rotacoes_duplas": 0,
-            "altura_apos_insercao": 0,
-            "altura_apos_remocao": 0,
-            "comparacoes_insercao": 0,
-            "comparacoes_busca": 0,
-            "comparacoes_remocao": 0,
+            # --- Métricas AVL ---
+            "rotacoes_total": 0, "rotacoes_simples": 0, "rotacoes_duplas": 0,
+            # --- Métricas Hash ---
+            "colisoes_total": 0, "tamanho_tabela": 0, "fator_carga": 0.0,
+            # --- Métricas Comuns ---
+            "altura_apos_insercao": 0, "altura_apos_remocao": 0,
+            "comparacoes_insercao": 0, "comparacoes_busca": 0, "comparacoes_remocao": 0,
         }
 
+        # 1. Soma as métricas de todas as execuções
         for resultado in self.resultados:
             for chave in soma_metricas.keys():
                 if chave in resultado:
-                    soma_metricas[chave] += resultado[chave]
+                    soma_metricas[chave] += resultado[chave] if chave != "fator_carga" else float(resultado[chave])
 
-        # Calcula médias
-        medias["rotacoes_total"] = soma_metricas["rotacoes_total"] // self.execucoes
-        medias["rotacoes_simples"] = soma_metricas["rotacoes_simples"] // self.execucoes
-        medias["rotacoes_duplas"] = soma_metricas["rotacoes_duplas"] // self.execucoes
-        medias["altura_apos_insercao"] = soma_metricas["altura_apos_insercao"] // self.execucoes
-        medias["altura_apos_remocao"] = soma_metricas["altura_apos_remocao"] // self.execucoes
-        medias["comparacoes_insercao"] = soma_metricas["comparacoes_insercao"] // self.execucoes
-        medias["comparacoes_busca"] = soma_metricas["comparacoes_busca"] // self.execucoes
-        medias["comparacoes_remocao"] = soma_metricas["comparacoes_remocao"] // self.execucoes
+        # 2. Calcula a Média Final
+        
+        medias["altura_apos_insercao"] = math.ceil(soma_metricas["altura_apos_insercao"] / self.execucoes)
+        medias["altura_apos_remocao"] = math.ceil(soma_metricas["altura_apos_remocao"] / self.execucoes)
+        medias["fator_carga"] = round(soma_metricas["fator_carga"] / self.execucoes, 3)
+        
+        chaves_int_media = ["rotacoes_total", "rotacoes_simples", "rotacoes_duplas", "colisoes_total",
+                            "comparacoes_insercao", "comparacoes_busca", "comparacoes_remocao"]
+        for chave in chaves_int_media:
+            if soma_metricas[chave] > 0:
+                 medias[chave] = soma_metricas[chave] // self.execucoes
 
-        return medias
+        if soma_metricas["tamanho_tabela"] > 0:
+             medias["tamanho_tabela"] = self.resultados[-1].get("tamanho_tabela", 0)
+
+        metricas_finais = {k: v for k, v in medias.items() if (v != 0 and v != 0.0) or k in ["dataset", "N", "execucoes"]}
+        
+        return metricas_finais
