@@ -40,7 +40,7 @@ class Benchmark:
             
             inicio_busca = benchmark.iniciar_cronometro()
             for chave in chaves_busca:
-                estrutura.contem(chave)
+                estrutura.buscar(chave)
             fim_busca = benchmark.parar_cronometro(inicio_busca)
 
             # --- FASE DE REMOÇÃO ---

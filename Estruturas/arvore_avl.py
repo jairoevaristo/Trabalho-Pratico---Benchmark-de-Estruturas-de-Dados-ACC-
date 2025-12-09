@@ -166,7 +166,7 @@ class ArvoreAVL:
     def remover(self, chave: int):        
         self.raiz = self._remover_recursivo(self.raiz, chave)        
 
-    def _contem_recursivo(self, raiz, chave: int) -> bool:
+    def _buscar_recursivo(self, raiz, chave: int) -> bool:
         if not raiz:
             return False
         
@@ -175,12 +175,12 @@ class ArvoreAVL:
         if chave == raiz.chave:
             return True
         elif chave < raiz.chave:
-            return self._contem_recursivo(raiz.esquerda, chave)
+            return self._buscar_recursivo(raiz.esquerda, chave)
         else:
-            return self._contem_recursivo(raiz.direita, chave)
+            return self._buscar_recursivo(raiz.direita, chave)
 
-    def contem(self, chave: int) -> bool:
-        return self._contem_recursivo(self.raiz, chave)
+    def buscar(self, chave: int) -> bool:
+        return self._buscar_recursivo(self.raiz, chave)
 
     def altura(self) -> int:
         return self._obter_altura(self.raiz)

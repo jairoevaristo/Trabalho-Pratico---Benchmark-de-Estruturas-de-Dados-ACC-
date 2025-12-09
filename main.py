@@ -3,17 +3,18 @@ import sys
 from Benchmark.gerador_de_dados import GeradorDeDados
 from Benchmark.benchmark import Benchmark
 from Estruturas.arvore_avl import ArvoreAVL  
+from Estruturas.encadeamento import HashTableEncadeamento  
+from Estruturas.encadeamento_aberto import HashTableEnderecamentoAberto  
 
 # --- Parâmetros Globais do Benchmark ---
-N_ELEMENTOS = 100000        
-M_BUSCAS = 100000           
+N_ELEMENTOS = 50000        
+M_BUSCAS = 50000           
 K_REMOCOES = N_ELEMENTOS // 10  
 NUM_EXECUCOES = 3          
 CHAVE_MIN = 1
 CHAVE_MAX = 10**9
 
 if __name__ == "__main__":
-    sys.setrecursionlimit(5000) 
     
     print("===============================================")
     print(">>> PREPARANDO O AMBIENTE DE BENCHMARK <<<")
@@ -29,7 +30,8 @@ if __name__ == "__main__":
     estruturas_para_testar = [
         {"nome": "AVL", "classe": ArvoreAVL},
         # {"nome": "BST", "classe": ArvoreBST},
-        # {"nome": "HASH_ENC", "classe": TabelaHashEncadeamento},
+        {"nome": "HASH_ENC", "classe": HashTableEncadeamento},
+        {"nome": "HASH_ABERTO", "classe": HashTableEnderecamentoAberto}
     ]
 
     for config in estruturas_para_testar:
@@ -51,6 +53,5 @@ if __name__ == "__main__":
             print("\n===============================================")
             print("Benchmark Concluído.")
         except Exception as e:
-            print(f"Erro ao rodar {config['nome']}: {e}", file=sys.stderr)
-            
-    
+            print(f"Erro ao rodar {config['nome']}: {e}", file=sys.stderr)       
+               
