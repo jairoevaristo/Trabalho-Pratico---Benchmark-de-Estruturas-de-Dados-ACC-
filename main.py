@@ -1,7 +1,9 @@
 import sys
+import time
 
 from Benchmark.gerador_de_dados import GeradorDeDados
 from Benchmark.benchmark import Benchmark
+from Benchmark.relatorio import gerar_pdf_relatorio
 from Estruturas.arvore_avl import ArvoreAVL  
 from Estruturas.encadeamento import HashTableEncadeamento  
 from Estruturas.encadeamento_aberto import HashTableEnderecamentoAberto  
@@ -34,6 +36,8 @@ if __name__ == "__main__":
         {"nome": "HASH_ABERTO", "classe": HashTableEnderecamentoAberto}
     ]
 
+    total_start_time = time.time() 
+
     for config in estruturas_para_testar:
         print(f"\n[EXECUÇÃO] Iniciando testes para {config['nome']}...")
         
@@ -49,9 +53,19 @@ if __name__ == "__main__":
         )
         
         try:
-            app_benchmark.executar_processo_completo(datasets_insercao, chaves_busca_unica, chaves_remocao_unica)
-            print("\n===============================================")
-            print("Benchmark Concluído.")
+            app_benchmark.executar_processo_completo(datasets_insercao, chaves_busca_unica, chaves_remocao_unica)            
+            print("\n===============================================")            
         except Exception as e:
-            print(f"Erro ao rodar {config['nome']}: {e}", file=sys.stderr)       
-               
+            print(f"Erro ao rodar {config['nome']}: {e}", file=sys.stderr)  
+
+    total_end_time = time.time()
+            
+    print("\n===============================================")
+    print(f"Benchmark Concluído. Tempo total: {round(total_end_time - total_start_time, 2)} segundos.")
+    print("===============================================")
+    
+    # 3. GERAÇÃO DO RELATÓRIO PDF
+    try: 
+        gerar_pdf_relatorio("resultados_benchmark.json")             
+    except Exception as e:
+        print(f"Erro ao gerar relatório PDF: {e}", file=sys.stderr)                
