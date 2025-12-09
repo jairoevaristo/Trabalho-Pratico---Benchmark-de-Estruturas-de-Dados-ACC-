@@ -23,7 +23,10 @@ class Benchmark:
         benchmark = MetricasBenchmark(execucoes=self.EXECUCOES, N=len(chaves_insercao))
         
         for execucao in range(self.EXECUCOES):            
-            estrutura = self.classe_estrutura()
+            if self.nome_tipo in ["HASH_ENC", "HASH_ABERTO"]:
+                estrutura = self.classe_estrutura(tamanho=self.N)
+            else:
+                estrutura = self.classe_estrutura()
             
             # --- FASE DE INSERÇÃO ---
             if hasattr(estrutura, 'colisoes_total'): estrutura.colisoes_total = 0

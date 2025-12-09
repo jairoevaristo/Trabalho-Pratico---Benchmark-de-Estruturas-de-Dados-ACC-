@@ -7,8 +7,8 @@ from Estruturas.encadeamento import HashTableEncadeamento
 from Estruturas.encadeamento_aberto import HashTableEnderecamentoAberto  
 
 # --- Parâmetros Globais do Benchmark ---
-N_ELEMENTOS = 50000        
-M_BUSCAS = 50000           
+N_ELEMENTOS = 1000        
+M_BUSCAS = N_ELEMENTOS // 10             
 K_REMOCOES = N_ELEMENTOS // 10  
 NUM_EXECUCOES = 3          
 CHAVE_MIN = 1
