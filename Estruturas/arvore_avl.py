@@ -156,7 +156,7 @@ class ArvoreAVL:
             temp = self._no_valor_minimo(raiz.direita)
             raiz.chave = temp.chave
             raiz.direita = self._remover_recursivo(raiz.direita, temp.chave)
-            self._tamanho += 1
+            self.comparacoes_remocao -= 1
             
         if raiz is None:
             return raiz

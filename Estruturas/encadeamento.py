@@ -16,10 +16,10 @@ class HashTableEncadeamento:
     def inserir(self, chave):
         indice = self.funcao_hash(chave)
         if chave not in self.tabela[indice]:
+            if len(self.tabela[indice]) > 0:
+                self.colisoes_total += 1
             self.tabela[indice].append(chave)
             self.elementos_inseridos += 1
-        else:
-            self.colisoes_total += 1
         self._calcular_fator_carga()
 
     def buscar(self, chave):

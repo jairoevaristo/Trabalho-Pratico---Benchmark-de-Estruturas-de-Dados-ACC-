@@ -16,14 +16,15 @@ class HashTableEnderecamentoAberto:
 
     def inserir(self, chave):
         indice = self.funcao_hash(chave)
-        colisao_detectada = False
-
-        while self.tabela[indice] not in (None, self.DELETADO):
-            colisao_detectada = True
-            indice = (indice + 1) % self.tamanho_tabela
-
-        if colisao_detectada:
+        
+        indice_original = indice
+        while self.tabela[indice] is not None:
+            if self.tabela[indice] == chave:
+                return
             self.colisoes_total += 1
+            indice = (indice + 1) % self.tamanho_tabela
+            if indice == indice_original:
+                raise Exception("Tabela hash cheia!")
         
         self.tabela[indice] = chave
         self.elementos_inseridos += 1

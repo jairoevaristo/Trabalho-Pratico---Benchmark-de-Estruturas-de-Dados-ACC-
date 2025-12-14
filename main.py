@@ -4,12 +4,13 @@ import time
 from Benchmark.gerador_de_dados import GeradorDeDados
 from Benchmark.benchmark import Benchmark
 from Benchmark.relatorio import gerar_pdf_relatorio
-from Estruturas.arvore_avl import ArvoreAVL  
+from Estruturas.arvore_avl import ArvoreAVL
+from Estruturas.arvore_binaria_busca import ArvoreBST
 from Estruturas.encadeamento import HashTableEncadeamento  
 from Estruturas.encadeamento_aberto import HashTableEnderecamentoAberto  
 
 # --- Parâmetros Globais do Benchmark ---
-N_ELEMENTOS = 1000        
+N_ELEMENTOS = 50000        
 M_BUSCAS = N_ELEMENTOS // 10             
 K_REMOCOES = N_ELEMENTOS // 10  
 NUM_EXECUCOES = 3          
@@ -31,7 +32,7 @@ if __name__ == "__main__":
 
     estruturas_para_testar = [
         {"nome": "AVL", "classe": ArvoreAVL},
-        # {"nome": "BST", "classe": ArvoreBST},
+        {"nome": "BST", "classe": ArvoreBST},
         {"nome": "HASH_ENC", "classe": HashTableEncadeamento},
         {"nome": "HASH_ABERTO", "classe": HashTableEnderecamentoAberto}
     ]
